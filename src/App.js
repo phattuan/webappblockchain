@@ -12,11 +12,26 @@ import Nav from './components/nav'
 
 
 function App() {
-  const [userName, setUserName] = useState('')
+  const [userName, setUserName] = useState('');
+  const [isAccAdmin, setIsAccAdmin] = useState();
+  const [connectTransaction, setConnectTransaction] = useState();
+  const [publicKey, setPublickey] = useState('')
   const getUserName = (user) => {
     return setUserName(user)
   }
-  // console.log(userName);
+  const getPublickey = (key) => {
+    return setPublickey(key)
+  }
+  console.log(userName);
+  const isAdmin = (isadmin) => {
+
+    return setIsAccAdmin(isadmin);
+  }
+
+  const getConnectTransaction = (connect) => {
+    console.log(connect);
+    return setConnectTransaction(connect);
+  }
   return (
 
     <div className="App">
@@ -24,10 +39,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<>
-            <Login functUserName={getUserName} />
+            <Login functPublicKey={getPublickey} functUserName={getUserName} isadmin={isAdmin} getconnecttransaction={getConnectTransaction} />
             <InfoApp />
           </>} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<Home isadmin={isAccAdmin} connecttransaction={connectTransaction}  publickey={publicKey}/>} />
         </Routes>
       </BrowserRouter>
     </div>

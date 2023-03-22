@@ -1,11 +1,22 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //import scss
 import ".././assets/custom/scss/buttCreateProduct.scss";
 
 const buttCreateProduct = (props) => {
   const [statusButtCreate, setStatusButtCreate] = useState(false);
+useEffect(() => {
+  let hidden = document.querySelector('.butt-create-product')
+
+  if(props.allowadmin){
+    hidden.style.visibility = 'visible'
+  }else{
+    hidden.style.visibility = 'hidden'
+  }
+  
+}, [])
+
   function createProduct() {
     if (!statusButtCreate) {
       props.getstatusbuttcreate(statusButtCreate);
@@ -21,3 +32,4 @@ const buttCreateProduct = (props) => {
 };
 
 export default buttCreateProduct;
+

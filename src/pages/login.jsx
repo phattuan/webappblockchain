@@ -2,10 +2,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useCallback, useEffect, useState } from "react";
 
-import styled from "styled-components";
-
 import FormLogRegister from "../components/formLogRegister";
 import AlertLog from "../components/alertLog";
+import { useNavigate } from "react-router-dom";
 
 import ".././assets/custom/scss/login.scss";
 //                test        //
@@ -15,53 +14,63 @@ import Web3 from "web3";
 //import web3 =================================
 import Web3Connection from ".././web3/Web3";
 
-let accAdmin = null
+// get accounts start
+
 let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 const getAccAdmin = async () => {
   const acc = await web3.eth.getAccounts((err, results) => {
     return results;
   });
-  // let data = await acc.json();
-  return acc
+  return acc;
 };
+//get accounts end
 
-
-// console.log(acc0);
 let connectWeb3 = new Web3Connection();
 
-// Web3.eth.getAccounts((err, acc)=>{
-//  console.log(acc[0]);
-// })
 function login(props) {
+  // bien
+  const [pathHome, setPathHome] = useState("");
+  let navigate = useNavigate();
+
   // ==================== trans =======
   connectWeb3.register();
   const [messLog, setMessLog] = useState("fail");
   // check log end
-  const [pathHome, setPathHome] = useState();
 
   // ======== props getusername to formlogreister => formlog
   const getNameUser = (user) => {
     // setUserName(user)
-    props.functUserName(user);
-
-    // ====== check admin ============================
+    props.functUserName(user.name);
+    props.functPublicKey(user.publickey);
+    //======= web3 register/log start =====
+    const connectTransaction = connectWeb3.register(user.name, user.publickey);
+    //======= web3 register/log end =====
+    
+    // ====== check admin ======================
     getAccAdmin().then((data) => {
-      if(user.publickey === data[0]){
-        console.log('admin');
-      }else{
-        console.log('client');
+      if (user.publickey === data[0]) {
+        // xu ly cac thuoc tinh admin start
+        //chuyen huong trang /home
+        navigate("/home");
+        // send isadmin to app.js
+        props.isadmin(true)
+        
+        props.getconnecttransaction(connectWeb3)
+        // xu ly cac thuoc tinh admin end
+        
+        console.log("admin");
+      } else {
+        navigate("/home");
+        console.log("client");
+        props.getconnecttransaction(connectWeb3)
+        props.isadmin(false)
       }
     });
     // if(checkAdmin) {
     //   console.log('admin');
     // }
-    //======= web3 register/log start =====
-    connectWeb3.register(user.name, user.publickey);
-    //======= web3 register/log end =====
 
     // }
-    let infUser = user;
-    return infUser;
   };
 
   return (
@@ -77,7 +86,7 @@ function login(props) {
             <span className="title-if">Thông tin thêm</span>
           </div>
         </div>
-        <FormLogRegister getusername={getNameUser} urlhome={pathHome} />
+        <FormLogRegister getusername={getNameUser} />
       </div>
 
       {/* alert log */}

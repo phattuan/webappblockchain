@@ -42,7 +42,7 @@ const formLogRegister = (props) => {
       );
     buttLog.style.backgroundColor = 'rgba(120, 243, 109, 0.63)';
     buttRegister.style.backgroundColor = "rgba(0, 0, 0, 0.43)";
-    setForm(<FormLog username={userName} getusername={props.getusername} urlhome1={props.urlhome}/>);
+    setForm(<FormLog username={userName} getusername={props.getusername} />);
   };
 // console.log(props.urlhome);
   return (

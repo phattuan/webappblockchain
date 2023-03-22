@@ -28,8 +28,8 @@ class Web3Connection {
         }); 
     }
 
-    async createProduct (productName, address) {
-        const productHash = this.web3.utils.asciiToHex(productName);
+    async createProduct (productName,hashImg, address) {
+        const productHash = this.web3.utils.sha3(hashImg);
         await this.smartContract.methods.createProduct(productHash, productName).send({from: address, gas: 3000000})
         .then((data) => {
             console.log(data);
@@ -107,7 +107,7 @@ class Web3Connection {
     }
 
     async isAdministrator(address) {
-        return await this.smartContract.methods.isAdministrator(address).call().then(function(result){console.log(result);});
+        return await this.smartContract.methods.isAdministrator(address).call();
     }
    
   }

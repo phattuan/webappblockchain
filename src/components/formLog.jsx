@@ -24,7 +24,6 @@ const formLog = (props) => {
     setInfLog({ ...infLog, [e.target.name]: e.target.value });
   }
   // console.log(urlHome);
-  // console.log(props.urlhome1);
   return (
     <>
       <form className="form-register-log">
@@ -51,9 +50,9 @@ const formLog = (props) => {
       </form>
       
       <button id="butt-register-log" onClick={getPustInfLog}>
-        <Link to='/home' id="link-home">
+        <div id="link-home">
           Log
-        </Link>
+        </div>
       </button>
     </>
   );

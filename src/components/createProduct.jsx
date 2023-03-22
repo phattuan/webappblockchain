@@ -1,15 +1,21 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from "react";
+import Web3 from "web3";
 
 // import scss
 import ".././assets/custom/scss/createproduct.scss";
 
+// import img
+import imgUpload from ".././assets/images/upload.gif";
+
 const createProduct = (props) => {
   const [statusComponentCreat, setStatusComponentCreat] = useState(true);
 
-  const [uploadImg, setUploadImg] = useState();
+  const [uploadImg, setUploadImg] = useState(imgUpload);
   //data get from create product
   const [detailProduct, setDetailProduct] = useState();
+  // data
+  const [hashProd, setHashProd] = useState("");
 
   // let hiddenInputImg = document.querySelector('.layout-create-product .container-create-product .container-left .border-img input[type="file"]');
 
@@ -28,14 +34,26 @@ const createProduct = (props) => {
   }
 
   function handlePostProduct() {
-    console.log(detailProduct);
+    // console.log(detailProduct);
     setStatusComponentCreat(false);
     props.getstatuscompcreate(statusComponentCreat);
-   
+    // console.log(props.publickey);
+    props.connecttransaction.createProduct(
+      setDetailProduct.name,
+      hashProd,
+      props.publickey
+    );
+    props.gethashproduct(hashProd);
+    console.log(hashProd);
   }
-  function handleClose(){
+  function handleClose() {
     setStatusComponentCreat(false);
     props.getstatuscompcreate(statusComponentCreat);
+  }
+
+  function uploadIpfs(e) {
+    setUploadImg("https://ipfs.io/ipfs/" + e.target.value);
+    setHashProd(Web3.utils.sha3(e.target.value));
   }
 
   return (
@@ -43,13 +61,13 @@ const createProduct = (props) => {
       <div className="container-create-product">
         <div className="container-left">
           <div className="border-img">
-            <input
+            {/* <input
               className="input-img"
               id="input-img"
               type="file"
               accept=".png, .jpg"
               onChange={handleUploadImg}
-            />
+            /> */}
             <img id="review-img" src={uploadImg} alt="" />
           </div>
         </div>
@@ -64,9 +82,10 @@ const createProduct = (props) => {
             <input
               type="text"
               placeholder="Hash image"
-              value={uploadImg}
+              // value={uploadImg}
               name="hash_img"
-              disabled
+              onChange={uploadIpfs}
+              // disabled
             />
             <input
               type="text"
@@ -79,8 +98,7 @@ const createProduct = (props) => {
             <span>Done</span>
           </div>
         </div>
-      <i className='bx bx-x icon-close' onClick={handleClose}></i>
-
+        <i className="bx bx-x icon-close" onClick={handleClose}></i>
       </div>
     </div>
   );
