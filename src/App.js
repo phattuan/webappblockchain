@@ -22,14 +22,14 @@ function App() {
   const getPublickey = (key) => {
     return setPublickey(key)
   }
-  console.log(userName);
+  // console.log(userName);
   const isAdmin = (isadmin) => {
 
     return setIsAccAdmin(isadmin);
   }
 
   const getConnectTransaction = (connect) => {
-    console.log(connect);
+    // console.log(connect);
     return setConnectTransaction(connect);
   }
   return (

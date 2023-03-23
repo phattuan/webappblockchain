@@ -19,7 +19,7 @@ const home = (props) => {
   // variable status
   const [createProduct, setCreateProduct] = useState();
   const [hashProduct, setHashProduct] = useState();
-  const [statusListProduct, setStatusListProduct] = useState(5);
+  const [statusListProduct, setStatusListProduct] = useState(7);
   const [listProduct, setListProduct] = useState();
   //data list product . get from smartcontract
   const [dataListProduct, setDataListProduct] = useState([
@@ -48,16 +48,15 @@ const home = (props) => {
   };
   //get hash product
   const getHasProduct = (hash) => {
-    // setHashProduct(hash);
-    // const test = async () => {
-      // await 
-      props.connecttransaction.productInfo(hash)
-      // .then((result) => {
-      //   console.log(result);
-      // });
-    // };
-    // test().then((data) => console.log(data));
-    // console.log(hash);
+    setHashProduct(hash);
+    console.log(hash);
+
+    const productInfor = async () => {
+      const product = await props.connecttransaction.productInfo(hash);
+      console.log(product);
+    };
+    productInfor();
+    
   };
 
   const getStatusButtCreate = (statusButt) => {

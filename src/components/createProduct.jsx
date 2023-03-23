@@ -16,44 +16,50 @@ const createProduct = (props) => {
   const [detailProduct, setDetailProduct] = useState();
   // data
   const [hashProd, setHashProd] = useState("");
+  // const [hashIpfsImg, setHashIpfsImg] = useState()
 
   // let hiddenInputImg = document.querySelector('.layout-create-product .container-create-product .container-left .border-img input[type="file"]');
 
-  function handleUploadImg(e) {
-    setUploadImg(URL.createObjectURL(e.target.files[0]));
+  // function handleUploadImg(e) {
+  //   setUploadImg(URL.createObjectURL(e.target.files[0]));
 
-    // hiddenInputImg.style.visibility = 'hidden';
-  }
+  // }
+  // hiddenInputImg.style.visibility = 'hidden';
 
   function getDetailProduct(e) {
     setDetailProduct({
       ...detailProduct,
       [e.target.name]: e.target.value,
-      hash_img: { uploadImg },
+      hashimg: { uploadImg },
     });
   }
 
   function handlePostProduct() {
-    // console.log(detailProduct);
     setStatusComponentCreat(false);
     props.getstatuscompcreate(statusComponentCreat);
     // console.log(props.publickey);
+
+    // call createProduct (prodName, hashimg,address)
     props.connecttransaction.createProduct(
-      setDetailProduct.name,
-      hashProd,
+      detailProduct.nameproduct,
+      uploadImg,
       props.publickey
+      
+
+
     );
+    // console.log(hashProd);
     props.gethashproduct(hashProd);
-    console.log(hashProd);
+    // console.log(uploadImg);
   }
   function handleClose() {
     setStatusComponentCreat(false);
     props.getstatuscompcreate(statusComponentCreat);
   }
-
+  
   function uploadIpfs(e) {
     setUploadImg("https://ipfs.io/ipfs/" + e.target.value);
-    setHashProd(Web3.utils.sha3(e.target.value));
+    setHashProd(Web3.utils.asciiToHex(detailProduct.nameproduct));
   }
 
   return (
@@ -76,21 +82,21 @@ const createProduct = (props) => {
             <input
               type="text"
               placeholder="Name Product"
-              name="name_product"
+              name="nameproduct"
               onChange={getDetailProduct}
             />
             <input
               type="text"
               placeholder="Hash image"
               // value={uploadImg}
-              name="hash_img"
+              name="hashimg"
               onChange={uploadIpfs}
               // disabled
             />
             <input
               type="text"
               placeholder="Time"
-              name="time_out"
+              name="timeout"
               onChange={getDetailProduct}
             />
           </form>

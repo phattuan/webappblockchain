@@ -25,53 +25,56 @@ const getAccAdmin = async () => {
 };
 //get accounts end
 
-let connectWeb3 = new Web3Connection();
-
 function login(props) {
+  let connectWeb3 = new Web3Connection();
   // bien
-  const [pathHome, setPathHome] = useState("");
   let navigate = useNavigate();
 
   // ==================== trans =======
-  connectWeb3.register();
+  // connectWeb3.register();
   const [messLog, setMessLog] = useState("fail");
-  // check log end
 
-  // ======== props getusername to formlogreister => formlog
-  const getNameUser = (user) => {
-    // setUserName(user)
-    props.functUserName(user.name);
-    props.functPublicKey(user.publickey);
-    //======= web3 register/log start =====
-    const connectTransaction = connectWeb3.register(user.name, user.publickey);
-    //======= web3 register/log end =====
-    
-    // ====== check admin ======================
-    getAccAdmin().then((data) => {
-      if (user.publickey === data[0]) {
-        // xu ly cac thuoc tinh admin start
-        //chuyen huong trang /home
-        navigate("/home");
-        // send isadmin to app.js
-        props.isadmin(true)
-        
-        props.getconnecttransaction(connectWeb3)
-        // xu ly cac thuoc tinh admin end
-        
-        console.log("admin");
-      } else {
-        navigate("/home");
-        console.log("client");
-        props.getconnecttransaction(connectWeb3)
-        props.isadmin(false)
-      }
+  const eventInfoPost = async function eventinfopost(username) {
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
     });
-    // if(checkAdmin) {
-    //   console.log('admin');
-    // }
+    const account = accounts[0];
+    const check = await connectWeb3.userInfo(account);
 
-    // }
+    // check accout registed
+
+    const checkRegisted = async function checkRegister() {
+      if (check.registered) {
+        console.log("da ton tai");
+        navigate("/home");
+      } else {
+        connectWeb3.register(username, account);
+        navigate("/home");
+        // console.log(username);
+      }
+      //log check data req from smart contract
+      // console.log(check);
+    };
+    checkRegisted();
+    // console.log(accAdmin);
+    // console.log(account);
+
+    // check admin
+    const functCheckAdmin = async function () {
+      ;
+
+      
+      if (connectWeb3.isAdministrator(account)===true) {
+        console.log('admin');
+      }else{
+        console.log('client');
+      }
+
+      // if(checkAdmin===)
+    };
+    functCheckAdmin();
   };
+  // eventInfoPost()
 
   return (
     <div className="layout-login">
@@ -86,9 +89,9 @@ function login(props) {
             <span className="title-if">Thông tin thêm</span>
           </div>
         </div>
-        <FormLogRegister getusername={getNameUser} />
+        <FormLogRegister geteventpostinfo={eventInfoPost} />
       </div>
-
+      {/* getusername={getNameUser}  */}
       {/* alert log */}
       <AlertLog messLog={messLog} />
 
@@ -100,6 +103,7 @@ function login(props) {
       {/* </Routes> */}
 
       {/* </BrowserRouter> */}
+      {/* <button onClick={testthu}>ok</button> */}
     </div>
   );
 }

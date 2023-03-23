@@ -5,25 +5,18 @@ import { BrowserRouter, Route, Routes, Link, NavLink } from "react-router-dom";
 
 import Home from ".././pages/home";
 
-
-
 const formLog = (props) => {
   const [infLog, setInfLog] = useState();
- 
-  const reqLog = "success";
-  const getPustInfLog = () => {
-    if (reqLog === "success") {
-      props.getusername(infLog);
-      //sử lý event sau khi click log
-      // push data lên server xử lý => nếu thỏa thì sẽ điều hướng đến /home
-      // console.log("htp");
-    }
+
+  const getPustInfLog = async() => {
+    await props.geteventpost(infLog.name);
   };
 
   function getInf(e) {
     setInfLog({ ...infLog, [e.target.name]: e.target.value });
   }
   // console.log(urlHome);
+
   return (
     <>
       <form className="form-register-log">
@@ -48,11 +41,9 @@ const formLog = (props) => {
           />
         </label>
       </form>
-      
+
       <button id="butt-register-log" onClick={getPustInfLog}>
-        <div id="link-home">
-          Log
-        </div>
+        <div id="link-home">Log</div>
       </button>
     </>
   );
