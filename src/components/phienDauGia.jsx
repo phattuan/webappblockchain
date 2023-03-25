@@ -79,7 +79,11 @@ const phienDauGia = (props) => {
     finalPrice(props.productHash).then((data) => {
       if (data.finalPrice > 0) {
         setShowPriceF(
-          <div className="show-final-price">FinalPrice: {data.finalPrice}</div>
+          <div className="show-final-price">
+            <div className="text-linear-final-price">
+              FinalPrice: {data.finalPrice}
+            </div>
+          </div>
         );
       }
     });
@@ -114,7 +118,11 @@ const phienDauGia = (props) => {
     await finalPrice(props.productHash).then((data) => {
       // console.log(data.finalPrice);
       setShowPriceF(
-        <div className="show-final-price">FinalPrice: {data.finalPrice}</div>
+       <div className="show-final-price">
+            <div className="text-linear-final-price">
+              FinalPrice: {data.finalPrice}
+            </div>
+          </div>
       );
     });
     //=================================
@@ -123,7 +131,11 @@ const phienDauGia = (props) => {
     await finalPrice(props.productHash).then((data) => {
       if (data.finalPrice > 0) {
         setShowPriceF(
-          <div className="show-final-price">FinalPrice: {data.finalPrice}</div>
+           <div className="show-final-price">
+            <div className="text-linear-final-price">
+              FinalPrice: {data.finalPrice}
+            </div>
+          </div>
         );
       }
     });
@@ -181,28 +193,69 @@ const phienDauGia = (props) => {
           onClick={closeClientPhien}
         ></i>
         <div className="container-left thong-tin-dinh-gia">
-          <span className="title-container-left">Thông tin định giá</span>
+          <span
+            className="title-container-left"
+            style={{ fontWeight: "600", color: "#11ff00" }}
+          >
+            Thông tin định giá
+          </span>
           <div className="border-bottom"></div>
+          <div className="time-count">
+            <span
+              className="text-w-dm"
+              style={{ color: "orange", fontWeight: "600" }}
+            >
+              Time End
+            </span>
+            <span className="text-w-dm">{chuyenDoiTime}</span>
+          </div>
           <div className="container-chill-thong-tin-phien-dinh-gia">
             <div className="container-chill-left-img">
               <img src={`${props.imgProduct}`} alt="" />
             </div>
             <div className="container-chill-right-detail">
-              <div className="time-count">
-                <span
-                  className="text-w-dm"
-                  style={{ color: "orange", fontWeight: "600" }}
-                >
-                  Time End
-                </span>
-                <span className="text-w-dm">{chuyenDoiTime}</span>
-              </div>
               <div className="detail-phien">
-                <div className="detail-phien-row">
-                  <span className="text-w-dm" style={{ marginRight: "2rem" }}>
+                <div
+                  className="detail-phien-row"
+                  style={{ textAlign: "start" }}
+                >
+                  <span
+                    className="text-w-dm"
+                    style={{
+                      marginLeft: "20px",
+                      marginRight: "10px",
+                      color: "#00bfff",
+                      fontWeight: "600",
+                    }}
+                  >
                     Tên sản phẩm:{" "}
                   </span>
                   <span className="text-w-dm">{props.productName}</span>
+                </div>
+                <div className="detail-phien-row">
+                  <span
+                    className="text-w-dm"
+                    style={{
+                      marginRight: "10px",
+                      display: "block",
+                      color: "#00bfff",
+                      fontWeight: "600",
+                      textAlign: "start",
+                      marginLeft: "20px",
+                    }}
+                  >
+                    Mô tả:{" "}
+                  </span>
+                  <span
+                    className="text-w-dm"
+                    style={{
+                      display: "block",
+                      textAlign: "start",
+                      marginLeft: "20px",
+                    }}
+                  >
+                    {props.description}
+                  </span>
                 </div>
 
                 {inputClientDinhGia}
@@ -219,7 +272,12 @@ const phienDauGia = (props) => {
           <div className="refresh" onClick={buttRefresh}>
             <i className="bx bx-refresh"></i>
           </div>
-          <span className="title-container-left">Định giá</span>
+          <span
+            className="title-container-left"
+            style={{ fontWeight: "600", color: "#11ff00" }}
+          >
+            Định giá
+          </span>
           <div className="border-bottom"></div>
           <div className="container-dinh-gia-client">
             {listRenderPrice.map((value, index) => {

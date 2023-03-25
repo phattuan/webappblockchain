@@ -7,31 +7,10 @@ import AlertLog from "../components/alertLog";
 import { useNavigate } from "react-router-dom";
 
 import ".././assets/custom/scss/login.scss";
-//                test        //
-// import Web3 from "web3";
-import Web3 from "web3";
 
-//import web3 =================================
-// import Web3Connection from ".././web3/Web3";
-
-// get accounts start
-
-// let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-// const getAccAdmin = async () => {
-//   const acc = await web3.eth.getAccounts((err, results) => {
-//     return results;
-//   });
-//   return acc;
-// };
-//get accounts end
 
 function login(props) {
-  // set var for login
-  // const [isAdmin, setIsAdmin] = useState();
 
-  // let connectWeb3 = new Web3Connection();
-
-  // bien
   let navigate = useNavigate();
 
   // ==================== trans =======

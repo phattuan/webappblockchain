@@ -45,6 +45,7 @@ const createProduct = (props) => {
       detailProduct.nameproduct,
       hashImg,
       props.address,
+      detailProduct.description,
      
     );
     props.connecttransaction.createValuation(
@@ -78,7 +79,8 @@ const createProduct = (props) => {
               accept=".png, .jpg"
               onChange={handleUploadImg}
             /> */}
-            <img id="review-img" src={uploadImg} alt="" />
+            <img id="review-img" src={imgUpload} alt="" />
+            <img id="review-img" className="top-review-img" src={uploadImg} alt="" />
           </div>
         </div>
         <div className="container-right">
@@ -103,6 +105,7 @@ const createProduct = (props) => {
               name="timeout"
               onChange={getDetailProduct}
             />
+            <textarea id="description" name="description"  placeholder="Nhập mô tả sản phẩm" onChange={getDetailProduct}/>
           </form>
           <div className="butt-done" onClick={handlePostProduct}>
             <span>Done</span>

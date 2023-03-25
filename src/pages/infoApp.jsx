@@ -10,7 +10,7 @@ const infoApp = () => {
     <div className="info-app">
       <div className="component-title-app">
         <img src={logo} alt="logo" />
-        <span className="title"> FunixPricingChain là gì?</span>
+        <span className="title"> Định giá Defi là gì?</span>
       </div>
       <span className="text-dn">
         Là một ứng dụng trực tuyến sử dụng chuỗi khối để định giá sản phẩm.

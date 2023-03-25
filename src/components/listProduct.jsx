@@ -28,7 +28,7 @@ const listProduct = (props) => {
   };
   const productInfo = async (hash) => {
     const infoProduct = await props.connecttransaction.productInfo(hash);
-    // console.log(infoProduct);
+    console.log(infoProduct);
     return infoProduct;
   };
 
@@ -49,14 +49,13 @@ const listProduct = (props) => {
                     imgProduct: `https://ipfs.io/ipfs/${dataproduct.ipfs}`,
                     timeEnd: dataproduct.timeEnd,
                     productHash: dataproduct.productHash,
-                    
+                    description: dataproduct.description,
                   }),
                 ]);
               });
             });
             countProduct = count;
           }
-       
         }
       });
     }, 1000);
@@ -72,7 +71,8 @@ const listProduct = (props) => {
     producthash,
     nameproduct,
     imgproduct,
-    timeend
+    timeend,
+    description
   ) => {
     setComponentPhienDinhGia(
       <PhienDauGia
@@ -80,6 +80,7 @@ const listProduct = (props) => {
         productHash={producthash}
         imgProduct={imgproduct}
         timeEnd={timeend}
+        description={description}
         connecttransaction={props.connecttransaction}
         statusphien={statusPhien}
         address={props.address}
@@ -103,6 +104,7 @@ const listProduct = (props) => {
             imgProduct={product.imgProduct}
             timeEnd={product.timeEnd}
             productHash={product.productHash}
+            description={product.description}
             geteventshowphiendinhgia={getEventShowPhienDinhGia}
 
           />

@@ -1,35 +1,46 @@
 /* eslint-disable no-undef */
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 // import imgae
 
 // import component
 import ButtCreateProduct from ".././components/buttCreateProduct";
 import CreateProduct from ".././components/createProduct";
 import ListProduct from ".././components/listProduct";
-import PhienDauGia from ".././components/phienDauGia";
 
 //import scss
 import ".././assets/custom/scss/home.scss";
 
-//imoprt img test
-import imgProduct1 from ".././assets/images/pexels-alex-andrews-821651.jpg";
-
 const home = (props) => {
-  // variable status
+  //  ========= variable status start========
   const [createProduct, setCreateProduct] = useState();
   const [statusListProduct, setStatusListProduct] = useState(7);
   const [listProduct, setListProduct] = useState();
+  //  ========= variable status end========
 
-  //
+  // ========== var def start =====================
+  let navigate = useNavigate();
+  // ========== var def end =====================
 
-  //get status butt create
+  // ========= event reload page start================
+  useEffect(() => {
+    window.addEventListener("load", function eventLoad(event) {
+      navigate("/");
+    });
+  }, []);
+  // ========= event reload page end================
+
+  // ========= get status getStatusCompCreate start ==========
   const getStatusCompCreate = (statusComp) => {
     if (statusComp) {
       setCreateProduct();
     }
   };
+  // ========= get status getStatusCompCreate end ==========
 
+  // ========= get status getStatusButtCreate start ==========
   const getStatusButtCreate = (statusButt) => {
     if (!statusButt) {
       setCreateProduct(
@@ -43,7 +54,9 @@ const home = (props) => {
       );
     }
   };
+  // ========= get status getStatusButtCreate end ==========
 
+  // ======= show/hidden . when list product = 0 start =======
   useEffect(() => {
     let emtyList = document.querySelector(".layout-home .layout-home-emty");
     if (statusListProduct === 0) {
@@ -58,7 +71,7 @@ const home = (props) => {
       );
     }
   }, []);
-  // console.log(props.address);
+  // ======= show/hidden . when list product = 0 end =======
 
   return (
     <div className="layout-home">
@@ -75,13 +88,9 @@ const home = (props) => {
         connecttransaction={props.connecttransaction}
         address={props.address}
       />
-
       {/*create product */}
       {createProduct}
-
       {listProduct}
-      {/**phien dau gia */}
-      {/* <PhienDauGia /> */}
     </div>
   );
 };

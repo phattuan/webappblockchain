@@ -16,7 +16,7 @@ import Nav from './components/nav'
 function App() {
   const [userName, setUserName] = useState('');
   const [isAccAdmin, setIsAccAdmin] = useState();
-  const [address,setAddress] = useState();
+  const [address, setAddress] = useState();
 
   let connectWeb3 = new Web3Connection();
 
@@ -27,30 +27,30 @@ function App() {
   }
 
 
-  const getAddress = (address)=>{
-   return setAddress(address)
+  const getAddress = (address) => {
+    return setAddress(address)
   }
   // console.log(address);
-  const nameU = async()=>{
+  const nameU = async () => {
     const userNa = await connectWeb3.userInfo(address)
     return userNa
   }
-  useEffect(()=>{
-    nameU().then(data=>{
+  useEffect(() => {
+    nameU().then(data => {
       setUserName(data.name)
     })
   })
   return (
 
     <div className="App">
-      < Nav username ={userName} connecttransaction={connectWeb3} address={address}/>
+      < Nav username={userName} connecttransaction={connectWeb3} address={address} />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<>
-            <Login  isadmin={isAdmin} connecttransaction={connectWeb3} address={getAddress} />
+            <Login isadmin={isAdmin} connecttransaction={connectWeb3} address={getAddress} />
             <InfoApp />
           </>} />
-          <Route path="/home" element={<Home isadmin={isAccAdmin} connecttransaction={connectWeb3} address={address}/>} />
+          <Route path="/home" element={<Home isadmin={isAccAdmin} connecttransaction={connectWeb3} address={address} />} />
         </Routes>
       </BrowserRouter>
     </div>

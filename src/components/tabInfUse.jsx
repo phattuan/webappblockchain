@@ -28,9 +28,6 @@ const RowInf = styled.div`
 `;
 
 const tabInfUse = (props) => {
-  // const { username } = props;
-  //   console.log(UserName);
-
   return (
     <StyledInfUser>
       <RowInf>

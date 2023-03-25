@@ -65,6 +65,11 @@
 				"internalType": "string",
 				"name": "ipfs",
 				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
 			}
 		],
 		"name": "createProduct",
@@ -252,6 +257,11 @@
 				"internalType": "bytes32",
 				"name": "productHash",
 				"type": "bytes32"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
 			},
 			{
 				"internalType": "string",

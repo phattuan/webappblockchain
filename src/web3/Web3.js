@@ -40,11 +40,11 @@ class Web3Connection {
                 console.log('====Fail====')
             });
     }
-    async createProduct(productName, imageHash, address) {
+    async createProduct(productName, imageHash, address, description) {
         
 
         const productHash = this.web3.utils.sha3(imageHash);
-        await this.smartContract.methods.createProduct(productHash, productName , imageHash).send({ from: address, gas: 3000000 })
+        await this.smartContract.methods.createProduct(productHash, productName , imageHash, description).send({ from: address, gas: 3000000 })
             .then((data) => {
                 console.log(data);
                 console.log('====Created a transaction====')

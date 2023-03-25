@@ -10,7 +10,7 @@ const product = (props) => {
  
   function selectPhienDauGia() {
     // di toi phien dau gia :
-    props.geteventshowphiendinhgia(props.productHash,props.nameProduct, props.imgProduct, props.timeEnd)
+    props.geteventshowphiendinhgia(props.productHash,props.nameProduct, props.imgProduct, props.timeEnd, props.description)
 
   }
  
