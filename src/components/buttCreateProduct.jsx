@@ -6,16 +6,22 @@ import ".././assets/custom/scss/buttCreateProduct.scss";
 
 const buttCreateProduct = (props) => {
   const [statusButtCreate, setStatusButtCreate] = useState(false);
-useEffect(() => {
-  let hidden = document.querySelector('.butt-create-product')
 
-  if(props.allowadmin){
-    hidden.style.visibility = 'visible'
-  }else{
-    hidden.style.visibility = 'hidden'
-  }
-  
-}, [])
+  const isAdminButtCreate = async () => {
+    const isAdmin = await props.connecttransaction.isAdministrator(
+      props.address
+    );
+    return isAdmin;
+  };
+
+  isAdminButtCreate().then((isadmin) => {
+    let hidden = document.querySelector(".butt-create-product");
+    if (isadmin) {
+      hidden.style.visibility = "visible";
+    } else {
+      hidden.style.visibility = "hidden";
+    }
+  });
 
   function createProduct() {
     if (!statusButtCreate) {
@@ -32,4 +38,3 @@ useEffect(() => {
 };
 
 export default buttCreateProduct;
-

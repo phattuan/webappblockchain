@@ -7,7 +7,7 @@ const formRegister = () => {
     <>
       <form className="form-register-log">
         <span className="row-inf-register">
-          Bước 1: Cài đặt Ethereum và gia nhập network ID: 686868 (lộc phát lộc
+          Bước 1: Cài đặt Ethereum và gia nhập network ID: 68686868 (lộc phát lộc
           phát lộc phát)
         </span>
         <span className="row-inf-register">Bước 2: Kết nối với MetaMask </span>

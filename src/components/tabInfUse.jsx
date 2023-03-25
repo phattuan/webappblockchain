@@ -28,9 +28,7 @@ const RowInf = styled.div`
 `;
 
 const tabInfUse = (props) => {
-  const { username } = props;
-
-  const [UserName, setUserName] = useState(username);
+  // const { username } = props;
   //   console.log(UserName);
 
   return (
@@ -50,7 +48,7 @@ const tabInfUse = (props) => {
             margin: 0,
           }}
         >
-          {UserName}
+          {props.username}
         </span>
       </RowInf>
       <RowInf>

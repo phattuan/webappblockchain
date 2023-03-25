@@ -8,41 +8,49 @@ import Home from './pages/home'
 import { useEffect, useState } from 'react';
 // import home from './pages/home';
 
+import Web3Connection from './web3/Web3'
+
 import Nav from './components/nav'
 
 
 function App() {
   const [userName, setUserName] = useState('');
   const [isAccAdmin, setIsAccAdmin] = useState();
-  const [connectTransaction, setConnectTransaction] = useState();
-  const [publicKey, setPublickey] = useState('')
-  const getUserName = (user) => {
-    return setUserName(user)
-  }
-  const getPublickey = (key) => {
-    return setPublickey(key)
-  }
+  const [address,setAddress] = useState();
+
+  let connectWeb3 = new Web3Connection();
+
+
   // console.log(userName);
   const isAdmin = (isadmin) => {
-
-    return setIsAccAdmin(isadmin);
+    setIsAccAdmin(isadmin);
   }
 
-  const getConnectTransaction = (connect) => {
-    // console.log(connect);
-    return setConnectTransaction(connect);
+
+  const getAddress = (address)=>{
+   return setAddress(address)
   }
+  // console.log(address);
+  const nameU = async()=>{
+    const userNa = await connectWeb3.userInfo(address)
+    return userNa
+  }
+  useEffect(()=>{
+    nameU().then(data=>{
+      setUserName(data.name)
+    })
+  })
   return (
 
     <div className="App">
-      < Nav username={userName} />
+      < Nav username ={userName} connecttransaction={connectWeb3} address={address}/>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<>
-            <Login functPublicKey={getPublickey} functUserName={getUserName} isadmin={isAdmin} getconnecttransaction={getConnectTransaction} />
+            <Login  isadmin={isAdmin} connecttransaction={connectWeb3} address={getAddress} />
             <InfoApp />
           </>} />
-          <Route path="/home" element={<Home isadmin={isAccAdmin} connecttransaction={connectTransaction}  publickey={publicKey}/>} />
+          <Route path="/home" element={<Home isadmin={isAccAdmin} connecttransaction={connectWeb3} address={address}/>} />
         </Routes>
       </BrowserRouter>
     </div>

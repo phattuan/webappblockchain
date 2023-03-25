@@ -19,6 +19,7 @@ class Web3Connection {
 
     /** Get account from metamask **/
 
+  
     async getAccount() {
         const accounts = await this.web3.eth.request({ method: 'eth_requestAccounts' });
         const address = accounts[0];
@@ -28,7 +29,7 @@ class Web3Connection {
 
     /**  Write into Blockchain  **/
     async register(name, address) {
-        
+
         await this.smartContract.methods.register(name).send({ from: address, gas: 3000000 })
             .then((data) => {
                 console.log(data);
@@ -39,10 +40,11 @@ class Web3Connection {
                 console.log('====Fail====')
             });
     }
-    async createProduct(productName, imageHash) {
-        const address = Web3Connection.getAccount();
-        const productHash = this.web3.utils.asciiToHex(imageHash);
-        await this.smartContract.methods.createProduct(productHash, productName).send({ from: address, gas: 3000000 })
+    async createProduct(productName, imageHash, address) {
+        
+
+        const productHash = this.web3.utils.sha3(imageHash);
+        await this.smartContract.methods.createProduct(productHash, productName , imageHash).send({ from: address, gas: 3000000 })
             .then((data) => {
                 console.log(data);
                 console.log('====Created a transaction====')
@@ -53,8 +55,9 @@ class Web3Connection {
             });
     }
 
-    async createValuation(productHash, timeSet) {
-        const address = Web3Connection.getAccount();
+    async createValuation(imageHash,timeSet,address) {
+        const productHash = this.web3.utils.sha3(imageHash);
+        
         await this.smartContract.methods.createValuation(productHash, timeSet).send({ from: address, gas: 3000000 })
             .then((data) => {
                 console.log(data);
@@ -66,8 +69,8 @@ class Web3Connection {
             });
     }
 
-    async addPrice(productHash, price) {
-        const address = Web3Connection.getAccount();
+    async addPrice(productHash, price, address) {
+       
         await this.smartContract.methods.addPrice(productHash, price).send({ from: address, gas: 3000000 })
             .then((data) => {
                 console.log(data);
@@ -79,8 +82,8 @@ class Web3Connection {
             });
     }
 
-    async calculateFinalPrice(productHash) {
-        const address = Web3Connection.getAccount();
+    async calculateFinalPrice(productHash, address) {
+        
         await this.smartContract.methods.caculateFinalPrice(productHash).send({ from: address, gas: 3000000 })
             .then((data) => {
                 console.log(data);
@@ -92,8 +95,8 @@ class Web3Connection {
             });
     }
 
-    async closeValuation(productHash) {
-        const address = Web3Connection.getAccount();
+    async closeValuation(productHash,address) {
+        
         await this.smartContract.methods.closeValuation(productHash).send({ from: address, gas: 3000000 })
             .then((data) => {
                 console.log(data);
@@ -132,14 +135,14 @@ class Web3Connection {
     async numberOfProductInValuation() {
         return await this.smartContract.methods.numberOfProductInValuation().call();
     }
-    //lấy hash, name của những sản phẩm đang định giá
+    //lấy hash, name của sản phẩm đang định giá
     async getProdInValByID(index) {
         return await this.smartContract.methods.getProdInValByID(index).call();
     }
     //lấy name, price của người định giá theo index sp và index người định giá
     //VD prodIndex 0, valuatorIndex 0 : lấy người định giá đầu tiên của sản phẩm đầu đang định giá
-    async getValuator(prodIndex, valuatorIndex) {
-        return await this.smartContract.methods.getValuator(prodIndex, valuatorIndex).call();
+    async getValuator(productHash, valuatorIndex) {
+        return await this.smartContract.methods.getValuator(productHash, valuatorIndex).call();
     }
 
     async adminInfo() {
@@ -147,7 +150,7 @@ class Web3Connection {
     }
 
     async isAdministrator(address) {
-        return await this.smartContract.methods.isAdministrator(address).call().then(function (result) { console.log(result); });
+        return await this.smartContract.methods.isAdministrator(address).call();
     }
 
 }

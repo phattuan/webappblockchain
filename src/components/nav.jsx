@@ -10,21 +10,19 @@ import ".././assets/custom/scss/logo.scss";
 import logo from ".././assets/images/images.png";
 
 const nav =  (props) => {
-  const [userName, setUserName] = useState();
-// const getuser = async ()=>{
-//  const user = new Promise((resolve, reject) => {
-//     resolve(props.username)
-//   })
-//   setUserName(await user);
-//   // useEffect(()=>{
-//   // })
-// }
-// getuser()
+  // const [userName, setUserName] = useState();
 
-  useEffect(()=>{
-    setUserName(props.username);
-  })
-  // console.log(userName);
+  // const getUserName = async()=>{
+  //   const userName = await props.connecttransaction.userInfo(props.address)
+  //   return userName
+  // }
+  // useEffect(()=>{
+  //   getUserName().then(data=>{
+  //     setUserName(data.name)
+  //     console.log(data.name);
+  //   })
+  // },[])
+ 
 
   const [tabInfo, setTabInfo] = useState();
   const [statusTabInf, setStatusTabInfo] = useState(false);
@@ -33,7 +31,7 @@ const nav =  (props) => {
       setTabInfo();
       setStatusTabInfo(false);
     } else {
-      setTabInfo(<TabInfUser username={userName} />);
+      setTabInfo(<TabInfUser username={props.username} />);
 
       setStatusTabInfo(true);
     }
@@ -46,7 +44,7 @@ const nav =  (props) => {
         <div className="logo">
           <img src={logo} alt="logo" />
         </div>
-        <h1 className="title">FunixPricingChain</h1>
+        <h1 className="title">Định giá DeFi</h1>
       </div>
       <div className="icon-inf-account" onClick={showInf}>
         <i className="bx bx-user"></i>

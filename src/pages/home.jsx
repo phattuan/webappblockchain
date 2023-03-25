@@ -18,45 +18,16 @@ import imgProduct1 from ".././assets/images/pexels-alex-andrews-821651.jpg";
 const home = (props) => {
   // variable status
   const [createProduct, setCreateProduct] = useState();
-  const [hashProduct, setHashProduct] = useState();
   const [statusListProduct, setStatusListProduct] = useState(7);
   const [listProduct, setListProduct] = useState();
-  //data list product . get from smartcontract
-  const [dataListProduct, setDataListProduct] = useState([
-    {
-      nameProduct: "binh co",
-      imgProduct:
-        "https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    },
-    {
-      nameProduct: "loa",
-      imgProduct:
-        "https://images.pexels.com/photos/1164778/pexels-photo-1164778.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    },
-    {
-      nameProduct: "xe",
-      imgProduct:
-        "https://images.pexels.com/photos/2882234/pexels-photo-2882234.jpeg?auto=compress&cs=tinysrgb&w=600",
-    },
-  ]);
+
+  //
 
   //get status butt create
   const getStatusCompCreate = (statusComp) => {
     if (statusComp) {
       setCreateProduct();
     }
-  };
-  //get hash product
-  const getHasProduct = (hash) => {
-    setHashProduct(hash);
-    console.log(hash);
-
-    const productInfor = async () => {
-      const product = await props.connecttransaction.productInfo(hash);
-      console.log(product);
-    };
-    productInfor();
-    
   };
 
   const getStatusButtCreate = (statusButt) => {
@@ -65,8 +36,9 @@ const home = (props) => {
         <CreateProduct
           getstatuscompcreate={getStatusCompCreate}
           connecttransaction={props.connecttransaction}
-          publickey={props.publickey}
-          gethashproduct={getHasProduct}
+          address={props.address}
+
+          // gethashproduct={getHasProduct}
         />
       );
     }
@@ -78,10 +50,15 @@ const home = (props) => {
       emtyList.style.visibility = "visible";
     } else {
       emtyList.style.visibility = "hidden";
-      setListProduct(<ListProduct datalistproduct={dataListProduct} />);
+      setListProduct(
+        <ListProduct
+          connecttransaction={props.connecttransaction}
+          address={props.address}
+        />
+      );
     }
   }, []);
-  // console.log(listProductShow);
+  // console.log(props.address);
 
   return (
     <div className="layout-home">
@@ -95,14 +72,14 @@ const home = (props) => {
       {/** button create prod */}
       <ButtCreateProduct
         getstatusbuttcreate={getStatusButtCreate}
-        allowadmin={props.isadmin}
+        connecttransaction={props.connecttransaction}
+        address={props.address}
       />
 
       {/*create product */}
       {createProduct}
 
       {listProduct}
-      {/* <ListProduct /> */}
       {/**phien dau gia */}
       {/* <PhienDauGia /> */}
     </div>

@@ -12,21 +12,25 @@ import ".././assets/custom/scss/login.scss";
 import Web3 from "web3";
 
 //import web3 =================================
-import Web3Connection from ".././web3/Web3";
+// import Web3Connection from ".././web3/Web3";
 
 // get accounts start
 
-let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-const getAccAdmin = async () => {
-  const acc = await web3.eth.getAccounts((err, results) => {
-    return results;
-  });
-  return acc;
-};
+// let web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+// const getAccAdmin = async () => {
+//   const acc = await web3.eth.getAccounts((err, results) => {
+//     return results;
+//   });
+//   return acc;
+// };
 //get accounts end
 
 function login(props) {
-  let connectWeb3 = new Web3Connection();
+  // set var for login
+  // const [isAdmin, setIsAdmin] = useState();
+
+  // let connectWeb3 = new Web3Connection();
+
   // bien
   let navigate = useNavigate();
 
@@ -39,16 +43,21 @@ function login(props) {
       method: "eth_requestAccounts",
     });
     const account = accounts[0];
-    const check = await connectWeb3.userInfo(account);
+    //  function sendAddress(){
+    // }
+    await props.address(account);
+
+    // get info user
+    const check = await props.connecttransaction.userInfo(account);
 
     // check accout registed
-
     const checkRegisted = async function checkRegister() {
       if (check.registered) {
         console.log("da ton tai");
         navigate("/home");
       } else {
-        connectWeb3.register(username, account);
+        console.log("ban chua dang ky, chung toi se dang ky cho ban");
+        props.connecttransaction.register(username, account);
         navigate("/home");
         // console.log(username);
       }
@@ -58,21 +67,29 @@ function login(props) {
     checkRegisted();
     // console.log(accAdmin);
     // console.log(account);
+    const checkAdmin = await props.connecttransaction.isAdministrator(account);
+    // console.log(checkAdmin);
+    console.log(props.connecttransaction);
 
     // check admin
     const functCheckAdmin = async function () {
-      ;
-
-      
-      if (connectWeb3.isAdministrator(account)===true) {
-        console.log('admin');
-      }else{
-        console.log('client');
+      if (checkAdmin) {
+        console.log("admin");
+        await props.isadmin(true);
+      } else {
+        console.log("client");
+        await props.isadmin(false);
       }
 
       // if(checkAdmin===)
     };
     functCheckAdmin();
+
+    // send data -> app -> home => show/hidden buttCreateProduct)
+    // const sendDataToHome = async () => {
+    //   await props.getconnecttransaction(props.connecttransaction);
+    // };
+    // sendDataToHome();
   };
   // eventInfoPost()
 
@@ -81,9 +98,10 @@ function login(props) {
       <div className=" layout-form">
         <div className="contaiter-left">
           <p id="text-review" className="">
-            Giao dịch chỉ số, hàng hóa và hơn thế nữa trên nền tảng độc quyền
-            của chúng tôi. Luôn cập nhật mới nhất các tin tức và giá thị trường,
-            cung cấp các công cụ quản lý rủi ro đa dạng và phong phú
+            Ở đây, chúng ta, những người trên mạng, cùng nhau định giá các loại
+            sản phẩm. Các sản phẩm đa dạng mọi loại từ hữu hình đến vô hình.
+            Giúp cho những người đang gặp khó khăn, khi họ không biết thứ mình
+            đang sở hữu có giá trị như thế nào. Hãy chung tay!
           </p>
           <div className="butt-infapp">
             <span className="title-if">Thông tin thêm</span>

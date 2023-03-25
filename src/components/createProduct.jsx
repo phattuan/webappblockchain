@@ -16,6 +16,7 @@ const createProduct = (props) => {
   const [detailProduct, setDetailProduct] = useState();
   // data
   const [hashProd, setHashProd] = useState("");
+  const [hashImg, setHashImg] = useState("");
   // const [hashIpfsImg, setHashIpfsImg] = useState()
 
   // let hiddenInputImg = document.querySelector('.layout-create-product .container-create-product .container-left .border-img input[type="file"]');
@@ -42,24 +43,27 @@ const createProduct = (props) => {
     // call createProduct (prodName, hashimg,address)
     props.connecttransaction.createProduct(
       detailProduct.nameproduct,
-      uploadImg,
-      props.publickey
-      
-
-
+      hashImg,
+      props.address,
+     
     );
-    // console.log(hashProd);
-    props.gethashproduct(hashProd);
-    // console.log(uploadImg);
+    props.connecttransaction.createValuation(
+      hashImg,
+      detailProduct.timeout,
+      props.address
+    );
+    
   }
+  
   function handleClose() {
     setStatusComponentCreat(false);
     props.getstatuscompcreate(statusComponentCreat);
   }
-  
+
   function uploadIpfs(e) {
     setUploadImg("https://ipfs.io/ipfs/" + e.target.value);
-    setHashProd(Web3.utils.asciiToHex(detailProduct.nameproduct));
+    setHashImg(e.target.value);
+    setHashProd(Web3.utils.asciiToHex(hashImg));
   }
 
   return (
@@ -94,7 +98,7 @@ const createProduct = (props) => {
               // disabled
             />
             <input
-              type="text"
+              type="number"
               placeholder="Time"
               name="timeout"
               onChange={getDetailProduct}

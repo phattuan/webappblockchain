@@ -30,16 +30,7 @@ const formLog = (props) => {
             onChange={getInf}
           />
         </label>
-        <label>
-          <input
-            type="password"
-            id="password"
-            className="input-f"
-            placeholder="Public key"
-            name="publickey"
-            onChange={getInf}
-          />
-        </label>
+        
       </form>
 
       <button id="butt-register-log" onClick={getPustInfLog}>

@@ -1,10 +1,5 @@
 [
 	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "bytes32",
@@ -20,19 +15,6 @@
 		"name": "addPrice",
 		"outputs": [],
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "administrator",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -78,6 +60,11 @@
 				"internalType": "string",
 				"name": "name",
 				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "ipfs",
+				"type": "string"
 			}
 		],
 		"name": "createProduct",
@@ -106,6 +93,37 @@
 	{
 		"inputs": [
 			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			}
+		],
+		"name": "register",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "administrator",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "uint256",
 				"name": "id",
 				"type": "uint256"
@@ -125,9 +143,9 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "productid",
-				"type": "uint256"
+				"internalType": "bytes32",
+				"name": "productHash",
+				"type": "bytes32"
 			},
 			{
 				"internalType": "uint256",
@@ -236,6 +254,11 @@
 				"type": "bytes32"
 			},
 			{
+				"internalType": "string",
+				"name": "ipfs",
+				"type": "string"
+			},
+			{
 				"internalType": "bool",
 				"name": "exists",
 				"type": "bool"
@@ -272,19 +295,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			}
-		],
-		"name": "register",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
